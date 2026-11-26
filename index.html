@@ -209,6 +209,10 @@
     .plate .num{font-size:1.2rem}
   }
   @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}}
+  .phoneblock a.textlink{font-size:.85rem;font-weight:500;margin-top:10px;color:var(--sky);text-decoration:underline;text-underline-offset:3px}
+  .phoneblock a.maillink{font-size:1rem;font-weight:500;word-break:break-all}
+  .sentnote{margin:0 0 20px;padding:14px 16px;border:2px solid var(--signal);border-radius:6px;font-weight:600}
+  .sentnote[hidden]{display:none}
 </style>
 </head>
 <body>
@@ -333,11 +337,19 @@
         <div class="phoneblock">
           <div class="k">Prefer to talk?</div>
           <a href="tel:+14015428641">+1 401 542 8641</a>
+          <a class="textlink" href="sms:+14015428641">or send us a text</a>
+          <div class="k" style="margin-top:22px">Email</div>
+          <a class="maillink" href="mailto:info@november-registration.com">info@november-registration.com</a>
         </div>
       </div>
 
-      <!-- Formspree: replace the action URL with your own form ID (instructions below) -->
-      <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+      <!-- Enquiries are delivered by email through FormSubmit to the address in the action below. -->
+      <form action="https://formsubmit.co/info@november-registration.com" method="POST">
+        <p class="sentnote" id="sentnote" role="status" hidden>Thank you. Your details have been sent, and we will be in touch shortly.</p>
+        <input type="hidden" name="_subject" value="[NOVEMBER AIRCRAFT] New website enquiry">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_next" value="https://www.november-registration.com/?sent=1#start">
+        <input type="text" name="_honey" tabindex="-1" autocomplete="off" style="display:none">
         <div class="field">
           <label for="name">Name</label>
           <input id="name" name="name" type="text" required autocomplete="name">
@@ -370,9 +382,15 @@
 <footer>
   <div class="wrap foot">
     <span class="brand">November Aircraft Registration</span>
-    <span>© 2026 November Aircraft Registration · Reno, NV · <a href="tel:+14015428641" class="mono" style="text-decoration:none">+1 401 542 8641</a></span>
+    <span>© 2026 November Aircraft Registration · Reno, NV · <a href="tel:+14015428641" class="mono" style="text-decoration:none">+1 401 542 8641</a> · <a href="mailto:info@november-registration.com" style="text-decoration:none">info@november-registration.com</a></span>
   </div>
 </footer>
+<script>
+  if (new URLSearchParams(location.search).get('sent') === '1') {
+    var n = document.getElementById('sentnote');
+    if (n) { n.hidden = false; }
+  }
+</script>
 
 </body>
 </html>
