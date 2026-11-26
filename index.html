@@ -13,20 +13,84 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "ProfessionalService",
-  "name": "November Aircraft Registration",
-  "url": "https://www.november-registration.com/",
-  "description": "FAA aircraft registration for non-US citizens and foreign entities, handled end to end from Reno, Nevada.",
-  "telephone": "+1-401-542-8641",
-  "email": "info@november-registration.com",
-  "address": {
-    "@type": "PostalAddress",
-    "addressLocality": "Reno",
-    "addressRegion": "NV",
-    "addressCountry": "US"
-  },
-  "areaServed": "Worldwide",
-  "serviceType": "FAA aircraft registration"
+  "@graph": [
+    {
+      "@type": "ProfessionalService",
+      "@id": "https://www.november-registration.com/#business",
+      "name": "November Aircraft Registration",
+      "url": "https://www.november-registration.com/",
+      "description": "FAA aircraft registration for non-US citizens and foreign entities, handled end to end from Reno, Nevada. Each aircraft is held by its own US company, with the voting interest held by a US citizen and nothing pooled with any other owner.",
+      "telephone": "+1-401-542-8641",
+      "email": "info@november-registration.com",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Reno",
+        "addressRegion": "NV",
+        "addressCountry": "US"
+      },
+      "areaServed": "Worldwide",
+      "serviceType": "FAA aircraft registration",
+      "founder": {
+        "@id": "https://www.november-registration.com/#founder"
+      },
+      "knowsAbout": [
+        "FAA aircraft registration",
+        "N-number registration for non-US owners",
+        "non-citizen trust",
+        "owner trust alternatives",
+        "14 CFR Part 47"
+      ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Registration services",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Standard registration",
+              "description": "FAA registration for non-US owners."
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Expedited service",
+              "description": "Fast-tracked FAA registration for time-sensitive deliveries and closings."
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Fleet management support",
+              "description": "Registration project management for owners of multiple aircraft."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://www.november-registration.com/#founder",
+      "name": "William H. Gilliam",
+      "jobTitle": "Principal",
+      "worksFor": {
+        "@id": "https://www.november-registration.com/#business"
+      },
+      "description": "US citizen who has registered aircraft with the FAA for non-US owners since the late 1980s."
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.november-registration.com/#website",
+      "url": "https://www.november-registration.com/",
+      "name": "November Aircraft Registration",
+      "publisher": {
+        "@id": "https://www.november-registration.com/#business"
+      }
+    }
+  ]
 }
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -233,6 +297,11 @@
   .phoneblock a.maillink{font-size:1rem;font-weight:500;word-break:break-all}
   .sentnote{margin:0 0 20px;padding:14px 16px;border:2px solid var(--signal);border-radius:6px;font-weight:600}
   .sentnote[hidden]{display:none}
+  .foot a.fl{color:var(--paper);margin-right:16px}
+  nav.top a{white-space:nowrap}
+  nav.top{gap:22px}
+  @media(max-width:1120px){nav.top a:not(.callbtn){display:none!important}}
+  @media(max-width:480px){.brand{font-size:.92rem}.foot a.fl{display:inline-block;margin-bottom:6px}}
 </style>
 </head>
 <body>
@@ -246,6 +315,8 @@
       <a href="#services">Services</a>
       <a href="#process">How it works</a>
       <a href="details.html">Details &amp; More</a>
+      <a href="owner-trust-alternatives.html">Trust alternatives</a>
+      <a href="faq.html">FAQ</a>
       <a class="callbtn mono" href="tel:+14015428641">+1 401 542 8641</a>
     </nav>
   </div>
@@ -263,6 +334,7 @@
         <a class="btn btn-primary" href="#start">Start your registration</a>
         <a class="btn btn-ghost" href="#services">See our services</a>
         <a class="btn btn-ghost" href="details.html">Details &amp; more</a>
+        <a class="btn btn-ghost" href="faq.html">FAQ</a>
       </div>
       <div class="plate" aria-label="Example US registration tail number">
         <span class="flag">US REG</span>
@@ -404,6 +476,7 @@
 <footer>
   <div class="wrap foot">
     <span class="brand">November Aircraft Registration</span>
+    <span><a class="fl" href="details.html">Details &amp; More</a><a class="fl" href="owner-trust-alternatives.html">Trust alternatives</a><a class="fl" href="faq.html">FAQ</a></span>
     <span>© 2026 November Aircraft Registration · Reno, NV · <a href="tel:+14015428641" class="mono" style="text-decoration:none">+1 401 542 8641</a> · <a href="mailto:info@november-registration.com" style="text-decoration:none">info@november-registration.com</a></span>
   </div>
 </footer>
