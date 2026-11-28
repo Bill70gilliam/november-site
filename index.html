@@ -306,6 +306,40 @@
   nav.top a{font-size:.9rem}
   @media(min-width:1181px){.brand{white-space:nowrap}}
   @media(max-width:1180px){nav.top a:not(.callbtn){display:none!important}}
+  /* ---- Welcome assistant ---- */
+  #assistant{scroll-margin-top:64px;background:var(--panel);color:var(--paper);padding:72px 0 80px;border-top:1px solid rgba(255,255,255,.08)}
+  #assistant h2{color:var(--paper);max-width:24ch}
+  #assistant .sec-eyebrow{color:var(--sky)}
+  #assistant .a-lead{color:rgba(245,243,236,.82);max-width:62ch;font-size:1.05rem;margin-top:16px}
+  #assistant .a-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,4fr);gap:28px;margin-top:34px;align-items:start}
+  #assistant .a-stage{position:relative;background:var(--ink);border:1px solid rgba(255,255,255,.14);border-radius:10px;overflow:hidden;aspect-ratio:4/3;display:grid;place-items:center}
+  #assistant .a-stage video{width:100%;height:100%;object-fit:cover;display:none}
+  #assistant .a-stage[data-live="1"] video{display:block}
+  #assistant .a-idle{padding:24px;text-align:center;color:#c7d0d9;max-width:34ch}
+  #assistant .a-stage[data-live="1"] .a-idle{display:none}
+  #assistant .a-idle .big{font-family:'Fraunces',Georgia,serif;font-size:1.35rem;color:#fff;margin-bottom:6px}
+  #assistant .a-controls{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:16px}
+  #assistant button{font:600 1rem 'Inter',sans-serif;border-radius:6px;padding:14px 26px;cursor:pointer;border:1px solid transparent}
+  #a-start{background:var(--signal);color:#fff}
+  #a-start:hover{background:#d8452f}
+  #a-stop{background:transparent;color:var(--paper);border-color:rgba(255,255,255,.35)}
+  #a-stop:hover{border-color:#fff}
+  #assistant button:focus-visible{outline:2px solid var(--sky);outline-offset:3px}
+  #assistant [hidden]{display:none!important}
+  #a-status{margin-top:14px;min-height:1.6em;color:#c7d0d9}
+  #a-status[data-kind="error"]{color:#ffb4a6}
+  #a-status[data-kind="live"]{color:#9fd8a8}
+  #a-status[data-kind="done"]{color:#fff;font-weight:600}
+  #assistant .a-panel{background:var(--paper);color:var(--ink);border-radius:10px;padding:22px 22px 18px}
+  #assistant .a-panel h3{font-family:'JetBrains Mono',monospace;font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--steel);margin-bottom:10px}
+  #a-log{height:300px;overflow-y:auto;font-size:.95rem}
+  #a-log:empty::before{content:"What you and the assistant say will appear here.";color:var(--steel)}
+  #a-log p{margin-bottom:10px;overflow-wrap:anywhere}
+  #a-log .you strong{color:var(--signal)}
+  #assistant .a-notice{margin-top:26px;border-left:3px solid var(--sky);padding:4px 0 4px 16px;color:#c7d0d9;font-size:.93rem;max-width:70ch}
+  #assistant .a-notice p+p{margin-top:8px}
+  @media(max-width:860px){#assistant .a-grid{grid-template-columns:1fr}#a-log{height:200px}}
+  .phoneblock a.asklink{font-size:1rem;font-weight:500;text-decoration:underline;text-underline-offset:3px}
 </style>
 </head>
 <body>
@@ -337,6 +371,7 @@
       <p class="lead">We register aircraft with the FAA on behalf of non-US citizens and foreign entities — managing the substance and the formalities so your aircraft is on the US register cleanly, quickly, and in full compliance. Based in Reno, Nevada, a no-tax jurisdiction.</p>
       <div class="cta-row">
         <a class="btn btn-primary" href="#start">Start your registration</a>
+        <a class="btn btn-ghost" href="#assistant">Talk to our assistant</a>
         <a class="btn btn-ghost" href="#services">See our services</a>
         <a class="btn btn-ghost" href="details.html">Details &amp; more</a>
         <a class="btn btn-ghost" href="faq.html">FAQ</a>
@@ -344,6 +379,37 @@
       <div class="plate" aria-label="Example US registration tail number">
         <span class="flag">US REG</span>
         <span class="num">N<span class="dim">·</span>NOV<span class="dim">·</span>26</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- WELCOME ASSISTANT -->
+  <section id="assistant" data-token-url="https://november-assistant.bill70gilliam.workers.dev/" data-mail-url="https://formsubmit.co/ajax/info@november-registration.com">
+    <div class="wrap">
+      <p class="sec-eyebrow">Talk to us now</p>
+      <h2>Ask our welcome assistant about registering your aircraft.</h2>
+      <p class="a-lead">A live AI assistant can explain how US registration works for non-US owners and take down your aircraft and contact details. Bill then gets back to you directly.</p>
+      <div class="a-grid">
+        <div>
+          <div class="a-stage" id="a-stage">
+            <div class="a-idle"><p class="big">Ready when you are.</p><p>Press the button, allow your microphone, and speak normally. Your camera stays off.</p></div>
+            <video id="a-video" autoplay playsinline></video>
+            <audio id="a-audio" autoplay></audio>
+          </div>
+          <div class="a-controls">
+            <button id="a-start" type="button">Talk to the assistant</button>
+            <button id="a-stop" type="button" hidden>End conversation</button>
+          </div>
+          <p id="a-status" role="status" aria-live="polite"></p>
+        </div>
+        <div class="a-panel">
+          <h3>Conversation</h3>
+          <div id="a-log" aria-live="polite"></div>
+        </div>
+      </div>
+      <div class="a-notice">
+        <p><strong>You are talking to an AI, not a person.</strong> It speaks English only and cannot give legal or tax advice, quote prices, or confirm whether you qualify.</p>
+        <p>A written copy of the conversation is sent to November Aircraft Registration so we can follow up. Please do not share passport, ID, or payment details here.</p>
       </div>
     </div>
   </section>
@@ -432,6 +498,8 @@
           <a class="textlink" href="sms:+14015428641">or send us a text</a>
           <div class="k" style="margin-top:22px">Email</div>
           <a class="maillink" href="mailto:info@november-registration.com">info@november-registration.com</a>
+          <div class="k" style="margin-top:22px">AI assistant</div>
+          <a class="asklink" href="#assistant">Talk to our welcome assistant</a>
         </div>
       </div>
 
@@ -484,6 +552,144 @@
     if (n) { n.hidden = false; }
   }
 </script>
+<script type="module">
+import { createNuanceConversation } from "https://cdn.jsdelivr.net/npm/@nuancelabs/js-sdk@0.40.0/+esm";
 
+const root = document.getElementById("assistant");
+const TOKEN_URL = root.dataset.tokenUrl || "";
+const MAIL_URL = root.dataset.mailUrl || "";
+const $ = (id) => document.getElementById(id);
+const video = $("a-video"), audio = $("a-audio"), startBtn = $("a-start"), stopBtn = $("a-stop");
+const statusEl = $("a-status"), logEl = $("a-log"), stage = $("a-stage");
+
+let conversation = null;
+let lines = [];            // { who: "Visitor" | "Assistant", text, id? }
+let personaLine = null;    // the assistant line being spoken now
+let sent = false;
+
+function visitorId() {
+  try {
+    let v = localStorage.getItem("nar-visitor");
+    if (!v) { v = "v-" + Math.random().toString(36).slice(2, 12) + Date.now().toString(36); localStorage.setItem("nar-visitor", v); }
+    return v;
+  } catch (e) { return "v-" + Math.random().toString(36).slice(2, 12); }
+}
+
+function setStatus(text, kind) { statusEl.textContent = text; statusEl.dataset.kind = kind || ""; }
+function setRunning(on) { startBtn.hidden = on; stopBtn.hidden = !on; stage.dataset.live = on ? "1" : ""; }
+
+function render() {
+  logEl.textContent = "";
+  for (const l of lines) {
+    const p = document.createElement("p");
+    const b = document.createElement("strong");
+    b.textContent = l.who + ": ";
+    p.append(b, l.text.trim());
+    p.className = l.who === "Visitor" ? "you" : "them";
+    logEl.append(p);
+  }
+  logEl.scrollTop = logEl.scrollHeight;
+}
+
+function onLive(event) {
+  const t = event.type;
+  if (t === "session.output_transcript.delta") {
+    if (!personaLine) { personaLine = { who: "Assistant", text: "" }; lines.push(personaLine); }
+    personaLine.text += String(event.delta || "");
+    render();
+  } else if (t === "session.output_audio.done") {
+    personaLine = null;
+  } else if (t === "session.input_transcript.done") {
+    const text = String(event.transcript || "").trim();
+    if (!text) return;
+    const old = event.replaces_event_id && lines.find((l) => l.id === event.replaces_event_id);
+    if (old) { old.text = text; old.id = event.event_id; }
+    else { lines.push({ who: "Visitor", text, id: event.event_id }); personaLine = null; }
+    render();
+  }
+}
+
+function transcriptText() { return lines.map((l) => l.who + ": " + l.text.trim()).join("\n\n"); }
+
+async function mailTranscript(keepalive) {
+  if (sent || !MAIL_URL || !lines.some((l) => l.who === "Visitor")) return;
+  sent = true;
+  try {
+    await fetch(MAIL_URL, {
+      method: "POST",
+      keepalive: !!keepalive,
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify({
+        _subject: "[NOVEMBER AIRCRAFT] Website assistant conversation",
+        _template: "box",
+        Source: "AI welcome assistant on the website",
+        When: new Date().toString(),
+        Conversation: transcriptText(),
+      }),
+    });
+  } catch (e) { sent = false; }
+}
+
+function friendly(error) {
+  const name = error && error.name, status = error && error.status, code = error && error.code;
+  if (name === "MediaAccessError") return "The assistant needs your microphone. Please allow it in your browser and try again.";
+  if (name === "WebRTCUnavailableError") return "Your browser or network is blocking live calls. Please use the form or phone instead.";
+  if (status === 429 || status === 409 || status === 503 || code === "capacity_unavailable" || code === "busy")
+    return "The assistant is busy right now. Please try again in a minute, or use the form or phone.";
+  return "The assistant could not start. Please use the form or phone instead.";
+}
+
+async function start() {
+  if (!TOKEN_URL) { setStatus("The assistant is not switched on yet.", "error"); return; }
+  lines = []; personaLine = null; sent = false; render();
+  setRunning(true);
+  setStatus("Getting the assistant ready. This can take up to half a minute.", "wait");
+
+  conversation = createNuanceConversation({
+    maxSessionSeconds: 360,
+    mediaDevices: { cameraEnabled: false },
+    token: async () => {
+      const r = await fetch(TOKEN_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ visitor: visitorId() }) });
+      if (!r.ok) { const e = new Error("token"); e.status = r.status; throw e; }
+      return (await r.json()).token;
+    },
+  });
+  const c = conversation;
+  c.onInterfaceEvent(onLive);
+  c.onChange((event) => {
+    if (c !== conversation) return;
+    if (event.type === "tracks-changed") {
+      try { c.avatar.videoTrack && c.avatar.videoTrack.attach(video); c.avatar.audioTrack && c.avatar.audioTrack.attach(audio); } catch (e) {}
+    } else if (event.type === "avatar-presented") {
+      setStatus("Connected. Just talk; the assistant can hear you.", "live");
+      c.sendInterfaceEvent({ type: "response.create" }).catch(() => {});
+    } else if (event.type === "join-slow") {
+      setStatus("Still connecting. A VPN or privacy extension can block live calls.", "wait");
+    } else if (event.type === "time-remaining" && event.secondsRemaining <= 45) {
+      setStatus("About " + Math.max(0, Math.round(event.secondsRemaining)) + " seconds left in this conversation.", "live");
+    } else if (event.type === "session-ended") {
+      finish(event.error ? friendly(event.error) : null);
+    }
+  });
+
+  try { await c.connect(); }
+  catch (error) { if (c === conversation) finish(friendly(error)); }
+}
+
+async function finish(errorText) {
+  const c = conversation; conversation = null;
+  setRunning(false);
+  if (c) { try { await c.disconnect(); } catch (e) {} }
+  const talked = lines.some((l) => l.who === "Visitor");
+  await mailTranscript(false);
+  if (errorText && !talked) setStatus(errorText, "error");
+  else if (talked) setStatus("Thank you. Your conversation has been passed to Bill, who will get back to you directly.", "done");
+  else setStatus("Conversation ended.", "");
+}
+
+startBtn.addEventListener("click", start);
+stopBtn.addEventListener("click", () => finish(null));
+window.addEventListener("pagehide", () => { mailTranscript(true); });
+</script>
 </body>
 </html>
